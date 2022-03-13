@@ -5,7 +5,9 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { backgroundColor, lightColor } from "utils/colors";
+import "react-toastify/dist/ReactToastify.css";
+
+import * as colors from "utils/colors";
 
 export default createGlobalStyle`
   * {
@@ -23,8 +25,8 @@ export default createGlobalStyle`
   body {
     height: 100%;
     width: 100%;
-    background-color: ${backgroundColor};
-    color: ${lightColor};
+    background-color: ${colors.backgroundColor};
+    color: ${colors.lightColor};
   }
   #root, body {
     height: 100%;
@@ -41,5 +43,20 @@ export default createGlobalStyle`
       outline: none;
       border: none;
     }
+  }
+
+  body .Toastify .Toastify_toast-container .Toastify_toast--success{
+    background-color: ${colors.successColor};
+
+  }
+
+  body .Toastify .Toastify_toast-container .Toastify_toast--error{
+    background-color: ${colors.errorColor};
+
+  }
+
+  body .Toastify .Toastify_toast-container .Toastify_toast--warning{
+    background-color: ${colors.warningColor};
+
   }
 `;
