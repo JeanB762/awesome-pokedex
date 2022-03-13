@@ -1,12 +1,17 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+
+import GlobalStyles from "Styles/GlobalStyles";
+import Routes from "routes";
+import NavMenu from "components/NavBar/index";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Awessome Pokedex</h1>
-      </header>
-    </div>
+    <BrowserRouter>
+      <GlobalStyles />
+      <NavMenu />
+      <Routes />
+    </BrowserRouter>
   );
 }
 

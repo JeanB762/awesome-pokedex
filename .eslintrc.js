@@ -5,7 +5,6 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "airbnb",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -19,9 +18,6 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "react-hooks", "@typescript-eslint", "prettier"],
-  rules: {
-    "import/no-unresolved": "error",
-  },
   settings: {
     "import/resolver": {
       typescript: {},
