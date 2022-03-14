@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 
-import { api } from "../../services/api";
-
-import Pokemon from "pages/Pokemon";
 import SearchBar from "./components/SearchBar";
-import { PokemonPrimaryCard, FloatingButtom } from "./style";
+import { PokemonCardContainer, FloatingButtom } from "./style";
 import { AppContainer } from "Styles/GlobalLayoutComponents";
+import { api } from "services/api";
 
-interface Pokemon {
+interface PokemonResponseData {
   name: string;
   url: string;
 }
@@ -17,41 +16,33 @@ interface PokemonsResponse {
   count: number;
   next: string;
   previous: string | null;
-  results: Pokemon[];
+  results: PokemonResponseData[];
 }
 
 const Home: React.FC = () => {
-  const [pokemons, setPokemons] = useState<PokemonsResponse>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [limit, setLimit] = useState(6);
+  const [offset, setOffset] = useState(0);
 
-  async function getData() {
-    try {
-      setIsLoading(true);
-      const responsePokemon = await api.get<PokemonsResponse>(
-        "/pokemon?limit=6"
+  const { data: pokemons, isFetching } = useQuery<PokemonsResponse>(
+    "pokemons",
+    async () => {
+      const response = await api.get(
+        `/pokemon/?offset=${offset}&limit=${limit}`
       );
-      setPokemons(responsePokemon.data);
-      setIsLoading(false);
-    } catch (e) {
-      console.log(e);
-      setIsLoading(false);
+
+      return response.data;
+    },
+    {
+      staleTime: 1000 * 30, // 30 Seconds
     }
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
-    console.log(pokemons?.results);
-  }, [pokemons]);
+  );
 
   const avatarUrl =
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png";
 
   return (
     <>
-      {!isLoading ? (
+      {!isFetching ? (
         <>
           <AppContainer>
             <h1>Pokemons</h1>
@@ -60,15 +51,18 @@ const Home: React.FC = () => {
             <SearchBar />
           </AppContainer>
           <AppContainer>
-            {pokemons?.results.map((pokemon) => {
+            {pokemons?.results?.map((pokemon) => {
+              const id = pokemon.url.split("/")[6];
               return (
-                <PokemonPrimaryCard key={pokemon.name}>
-                  <h3>{pokemon.name}</h3>
+                <PokemonCardContainer key={pokemon.name}>
+                  <h3>
+                    <strong style={{ fontSize: 24 }}>#{id}</strong>{" "}
+                    {pokemon.name}
+                  </h3>
                   <Link to={`/pokemon/${pokemon.name}`}>
                     <img src={avatarUrl} />
                   </Link>
-                  <p>{pokemon.url}</p>
-                </PokemonPrimaryCard>
+                </PokemonCardContainer>
               );
             })}
           </AppContainer>

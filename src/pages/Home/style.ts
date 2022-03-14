@@ -3,27 +3,19 @@ import Fab from "@mui/material/Fab";
 
 import { lightColor, secondaryColor, warningColor } from "utils/colors";
 
-export const PokemonPrimaryCard = styled.div`
+export const PokemonCardContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  height: 350px;
-  word-wrap: break-word;
+  width: 250px;
+  height: 315px;
   background-color: ${secondaryColor};
-  border-top: 2px solid ${warningColor};
-  border-bottom: 2px solid ${warningColor};
+  border-top: 3px solid ${warningColor};
+  border-bottom: 3px solid ${warningColor};
   border-radius: 5px;
-  margin: 0 12px 24px 12px;
-
-  p {
-    margin-top: 12px;
-  }
+  margin: 10px;
 `;
 
 export const FloatingButtom = styled(Fab)`
-  margin: 0 0 24px 0 !important;
+  margin: 0 0 16px 0 !important;
   background-color: ${secondaryColor} !important;
   color: ${lightColor} !important;
   :hover {
