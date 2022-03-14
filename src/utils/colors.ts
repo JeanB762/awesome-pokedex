@@ -1,5 +1,6 @@
 export const backgroundColor = "#0A1929";
-export const lightColor = "#ffffff";
+export const lightColor = "#FFF";
+export const defaultGrey = "#DADADA";
 export const primaryColor = "#0770bb";
 export const secondaryColor = "#2f4858";
 export const successColor = "#3BB54A";

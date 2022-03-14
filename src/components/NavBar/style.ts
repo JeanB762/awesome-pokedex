@@ -10,11 +10,12 @@ export const NavBar = styled.nav`
   background-color: ${secondaryColor};
   a {
     color: ${lightColor};
-    margin: 0 24px;
     font-weight: bold;
-    :hover {
-      border-bottom: 2px solid ${infoColor};
-    }
+    margin: 0 24px;
+  }
+
+  .active {
+    border-bottom: 2px solid ${infoColor};
   }
 `;
 

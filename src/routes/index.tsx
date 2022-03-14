@@ -10,7 +10,7 @@ const Routes: React.FC = () => {
     <RouteDOM>
       <Route path="/" element={<Home />} />
       <Route path="/pokedex" element={<Pokedex />} />
-      <Route path="/pokemon" element={<Pokemon />} />
+      <Route path="/pokemon/:pokemonName" element={<Pokemon />} />
       <Route path="/*" element={<NotFound />} />
     </RouteDOM>
   );
