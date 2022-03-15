@@ -1,44 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useQuery } from "react-query";
 
-import SearchBar from "./components/SearchBar";
-import { PokemonCardContainer, FloatingButtom } from "./style";
+import SearchBar from "../../components/SearchBar";
+import { CustomButtom } from "./style";
 import { AppContainer } from "Styles/GlobalLayoutComponents";
-import { api } from "services/api";
+import PokemonCard from "../../components/PokemonCard";
+import { usePokemons } from "services/hooks/Pokemons/usePokemons";
 
-interface PokemonResponseData {
-  name: string;
-  url: string;
-}
-
-interface PokemonsResponse {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: PokemonResponseData[];
-}
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const Home: React.FC = () => {
   const [limit, setLimit] = useState(6);
   const [offset, setOffset] = useState(0);
 
-  const { data: pokemons, isFetching } = useQuery<PokemonsResponse>(
-    "pokemons",
-    async () => {
-      const response = await api.get(
-        `/pokemon/?offset=${offset}&limit=${limit}`
-      );
-
-      return response.data;
-    },
-    {
-      staleTime: 1000 * 30, // 30 Seconds
-    }
-  );
-
-  const avatarUrl =
-    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png";
+  const { data: pokemons, isFetching } = usePokemons(offset, limit);
+  useEffect(() => {
+    console.log(offset - limit);
+  }, [offset]);
 
   return (
     <>
@@ -52,24 +30,20 @@ const Home: React.FC = () => {
           </AppContainer>
           <AppContainer>
             {pokemons?.results?.map((pokemon) => {
-              const id = pokemon.url.split("/")[6];
-              return (
-                <PokemonCardContainer key={pokemon.name}>
-                  <h3>
-                    <strong style={{ fontSize: 24 }}>#{id}</strong>{" "}
-                    {pokemon.name}
-                  </h3>
-                  <Link to={`/pokemon/${pokemon.name}`}>
-                    <img src={avatarUrl} />
-                  </Link>
-                </PokemonCardContainer>
-              );
+              return <PokemonCard name={pokemon.name} key={pokemon.name} />;
             })}
           </AppContainer>
           <AppContainer>
-            <FloatingButtom variant="extended">
-              Mostrar mais resultados...
-            </FloatingButtom>
+            <CustomButtom
+              disabled={!offset}
+              onClick={() => setOffset(offset - limit)}
+            >
+              <ChevronLeftIcon />
+            </CustomButtom>
+
+            <CustomButtom onClick={() => setOffset(offset + limit)}>
+              <ChevronRightIcon />
+            </CustomButtom>
           </AppContainer>
         </>
       ) : (
