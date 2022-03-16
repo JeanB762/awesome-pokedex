@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
 import { PokemonCardContainer } from "./style";
 
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 import { Box, Button, Tooltip } from "@mui/material";
+
+import { PokedexContext } from "providers/pokedexProvider";
 
 interface PropsInterface {
   name: string;
@@ -26,6 +28,18 @@ interface PokemonTypes {
   url: string;
 }
 
+interface PokemonResponseData {
+  name: string;
+  url: string;
+}
+
+interface PokemonsResponse {
+  count: number;
+  next: string;
+  previous: string | null;
+  results: PokemonResponseData[];
+}
+
 interface PokemonTypesResponse {
   slot: number;
   type: PokemonTypes;
@@ -39,6 +53,8 @@ interface Pokemon {
 }
 
 const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
+  const { addPokemon } = useContext(PokedexContext);
+
   const { pokemon, isFetching } = usePokemon<Pokemon>(name);
 
   let pokemonTypesArray: string[] = [];
@@ -47,6 +63,11 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
       pokemonTypesArray = [...pokemonTypesArray, item.type.name];
     });
   }
+
+  // function handleAddPokedex(pokemon: any) {
+  //   console.log(pokedex);
+  //   window.localStorage.setItem("podex", [...pokedex, pokemon]);
+  // }
 
   const pokemonTypes = pokemonTypesArray.join(" | ");
 
@@ -63,7 +84,15 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
           <img src={pokemon?.sprites.front_default} />
           <Box marginBottom={2}>{pokemonTypes}</Box>
           <Tooltip title="Add to Pokedex">
-            <Button variant="outlined" color="inherit">
+            <Button
+              variant="outlined"
+              color="info"
+              onClick={() => {
+                if (pokemon) {
+                  addPokemon(pokemon);
+                }
+              }}
+            >
               <CatchingPokemonIcon />
             </Button>
           </Tooltip>
