@@ -2,7 +2,7 @@ import React from "react";
 import { Routes as RouteDOM, Route } from "react-router-dom";
 import Home from "pages/Home";
 import Pokedex from "pages/Pokedex";
-import Pokemon from "pages/Pokemon";
+import PokemonProfile from "pages/PokemonProfile";
 import NotFound from "pages/pageNotFound";
 
 const Routes: React.FC = () => {
@@ -10,7 +10,10 @@ const Routes: React.FC = () => {
     <RouteDOM>
       <Route path="/" element={<Home />} />
       <Route path="/pokedex" element={<Pokedex />} />
-      <Route path="/pokemon/:pokemonName" element={<Pokemon />} />
+      <Route
+        path="/pokedex/pokemon/:pokemonName"
+        element={<PokemonProfile />}
+      />
       <Route path="/*" element={<NotFound />} />
     </RouteDOM>
   );

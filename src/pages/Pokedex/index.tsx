@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { PokedexContext } from "providers/pokedexProvider";
 import { AppContainer } from "Styles/GlobalLayoutComponents";
-import PokemonCard from "components/PokemonCardPokedex";
-import { Button } from "@mui/material";
+import PokedexCard from "components/PokemonCardPokedex";
 
 const Pokedex: React.FC = () => {
-  const { pokedex, removePokemon } = useContext(PokedexContext);
+  const { pokedex } = useContext(PokedexContext);
 
   return (
     <>
@@ -15,11 +14,7 @@ const Pokedex: React.FC = () => {
 
       <AppContainer>
         {pokedex.map((pokemon) => {
-          return (
-            <>
-              <PokemonCard name={pokemon.name} key={pokemon.name} />
-            </>
-          );
+          return <PokedexCard name={pokemon.name} key={pokemon.name} />;
         })}
       </AppContainer>
     </>

@@ -10,7 +10,7 @@ export const theme = createTheme({
       main: colors.secondaryColor,
     },
     info: {
-      main: colors.infoColor,
+      main: colors.lightColor,
     },
     success: {
       main: colors.successColor,

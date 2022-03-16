@@ -2,8 +2,8 @@ import React from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import type { LinkProps } from "react-router-dom";
 
-import { CgPokemon } from "react-icons/cg";
-import { IoHome } from "react-icons/io5";
+import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
+import HouseIcon from "@mui/icons-material/House";
 
 import { NavBar, NavItem } from "./style";
 
@@ -25,13 +25,13 @@ export default function NavMenu() {
     <NavBar>
       <NavMenuLink to="/">
         <NavItem>
-          <IoHome size={18} />
+          <HouseIcon />
           Home
         </NavItem>
       </NavMenuLink>
       <NavMenuLink to="/pokedex">
         <NavItem>
-          <CgPokemon size={24} />
+          <CatchingPokemonIcon />
           Pokedex
         </NavItem>
       </NavMenuLink>

@@ -7,43 +7,17 @@ import { Box, Button, Tooltip } from "@mui/material";
 
 import { PokedexContext } from "providers/pokedexProvider";
 import { Delete } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 interface PropsInterface {
   name: string;
 }
 
-interface Sprites {
-  back_default: string;
-  back_female: string;
-  back_shiny: string;
-  back_shiny_female: string;
-  front_default: string;
-  front_female: string;
-  front_shiny: string;
-  front_shiny_female: string;
-}
-
-interface PokemonTypes {
-  name: string;
-  url: string;
-}
-
-interface PokemonTypesResponse {
-  slot: number;
-  type: PokemonTypes;
-}
-
-interface Pokemon {
-  name: string;
-  id: number;
-  sprites: Sprites;
-  types: PokemonTypesResponse[];
-}
-
-const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
+const PokedexCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   const { removePokemon } = useContext(PokedexContext);
 
-  const { pokemon, isFetching } = usePokemon<Pokemon>(name);
+  // const { pokemon, isFetching } = usePokemon<Pokemon>(name);
+  const { data: pokemon, isFetching } = usePokemon(name);
 
   let pokemonTypesArray: string[] = [];
   if (pokemon?.types) {
@@ -63,7 +37,9 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
             </span>{" "}
             {pokemon?.name}
           </p>
-          <img src={pokemon?.sprites.front_default} />
+          <Link to={`pokemon/${pokemon?.name}`}>
+            <img src={pokemon?.sprites.front_default} />
+          </Link>
           <Box marginBottom={2}>{pokemonTypes}</Box>
           <Tooltip title="Remove from Pokedex">
             <Button
@@ -84,4 +60,4 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   );
 };
 
-export default PokemonCard;
+export default PokedexCard;

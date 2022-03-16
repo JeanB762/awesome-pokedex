@@ -1,18 +1,7 @@
 import { useQuery, UseQueryResult } from "react-query";
 
 import { api } from "../../api";
-
-interface PokemonResponseData {
-  name: string;
-  url: string;
-}
-
-interface PokemonsResponse {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: PokemonResponseData[];
-}
+import { PokemonsResponse } from "../../DTO/pokemonsDTO";
 
 export const getPokemonsData = async (
   offset: number,

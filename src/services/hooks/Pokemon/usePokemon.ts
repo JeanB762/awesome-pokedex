@@ -1,24 +1,16 @@
-import { useState, useEffect } from "react";
+import { useQuery, UseQueryResult } from "react-query";
+
 import { api } from "../../api";
+import { Pokemon } from "../../DTO/pokemonsDTO";
 
-export function usePokemon<Pokemon>(name: string) {
-  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-  const [isFetching, setIsFetching] = useState(true);
-  const [isError, setIsError] = useState<unknown>(null);
+export const getPokemonData = async (name: string): Promise<Pokemon> => {
+  const { data } = await api.get<Pokemon>(`/pokemon/${name}`);
 
-  async function getData(name: string) {
-    try {
-      const response = await api.get(`/pokemon/${name}`);
-      setPokemon(response.data);
-    } catch (error) {
-      setIsError(error);
-    } finally {
-      setIsFetching(false);
-    }
-  }
-  useEffect(() => {
-    getData(name);
-  }, []);
+  return data;
+};
 
-  return { pokemon, isFetching, isError };
-}
+export const usePokemon = (name: string): UseQueryResult<Pokemon, unknown> => {
+  return useQuery(["pokemons", name], () => getPokemonData(name), {
+    staleTime: 1000 * 60 * 5, // Five Minutes of fresh data
+  });
+};

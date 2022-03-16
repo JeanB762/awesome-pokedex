@@ -1,4 +1,3 @@
-import Pokemon from "pages/Pokemon";
 import React, { useEffect, useState } from "react";
 
 interface Pokedex {
@@ -12,19 +11,36 @@ interface Sprites {
 }
 
 interface PokemonTypesResponse {
-  type: PokemonTypes;
+  type: {
+    name: string;
+    url: string;
+  };
 }
 
-interface PokemonTypes {
-  name: string;
-  url: string;
+interface Ability {
+  ability: {
+    name: string;
+    url: string;
+  };
 }
 
+interface Stat {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
+}
 interface Pokemon {
   name: string;
   id: number;
+  height: number;
+  weight: number;
   sprites: Sprites;
   types: PokemonTypesResponse[];
+  stats: Stat[];
+  abilities: Ability[];
 }
 
 const pokedexDefaultValues: Pokedex = {
