@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
 import { PokemonCardContainer } from "./style";
 
@@ -7,6 +6,7 @@ import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 import { Box, Button, Tooltip } from "@mui/material";
 
 import { PokedexContext } from "providers/pokedexProvider";
+import { Delete } from "@mui/icons-material";
 
 interface PropsInterface {
   name: string;
@@ -28,18 +28,6 @@ interface PokemonTypes {
   url: string;
 }
 
-interface PokemonResponseData {
-  name: string;
-  url: string;
-}
-
-interface PokemonsResponse {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: PokemonResponseData[];
-}
-
 interface PokemonTypesResponse {
   slot: number;
   type: PokemonTypes;
@@ -53,7 +41,7 @@ interface Pokemon {
 }
 
 const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
-  const { addPokemon } = useContext(PokedexContext);
+  const { removePokemon } = useContext(PokedexContext);
 
   const { pokemon, isFetching } = usePokemon<Pokemon>(name);
 
@@ -63,12 +51,6 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
       pokemonTypesArray = [...pokemonTypesArray, item.type.name];
     });
   }
-
-  // function handleAddPokedex(pokemon: any) {
-  //   console.log(pokedex);
-  //   window.localStorage.setItem("podex", [...pokedex, pokemon]);
-  // }
-
   const pokemonTypes = pokemonTypesArray.join(" | ");
 
   return (
@@ -83,17 +65,15 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
           </p>
           <img src={pokemon?.sprites.front_default} />
           <Box marginBottom={2}>{pokemonTypes}</Box>
-          <Tooltip title="Add to Pokedex">
+          <Tooltip title="Remove from Pokedex">
             <Button
               variant="outlined"
               color="info"
               onClick={() => {
-                if (pokemon) {
-                  addPokemon(pokemon);
-                }
+                if (pokemon) removePokemon(pokemon);
               }}
             >
-              <CatchingPokemonIcon />
+              <Delete />
             </Button>
           </Tooltip>
         </PokemonCardContainer>

@@ -2,13 +2,7 @@ import styled from "styled-components";
 
 import IconButton from "@mui/material/IconButton";
 
-import {
-  lightColor,
-  primaryColor,
-  secondaryColor,
-  warningColor,
-} from "utils/colors";
-import { Button, Icon } from "@mui/material";
+import { lightColor, secondaryColor, warningColor } from "utils/colors";
 
 export const PokemonCardContainer = styled.div`
   display: flex;

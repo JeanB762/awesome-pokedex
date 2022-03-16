@@ -3,38 +3,18 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/SearchBar";
 import { CustomButtom } from "./style";
 import { AppContainer } from "Styles/GlobalLayoutComponents";
-import PokemonCard from "../../components/PokemonCard";
+import PokemonCard from "../../components/PokemonCardHome";
 import { usePokemons } from "services/hooks/Pokemons/usePokemons";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-interface PokemonResponseData {
-  name: string;
-  url: string;
-}
-
-interface PokedexTypes {
-  name: string | undefined;
-  id: number | undefined;
-}
-
-interface PokemonsResponse {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: PokemonResponseData[];
-}
 const Home: React.FC = () => {
   const [limit, setLimit] = useState(6);
   const [offset, setOffset] = useState(0);
-  const [pokedexPokemons, setPokedexPokemons] = useState<PokedexTypes[]>();
+  const [searchTherm, setSearchTherm] = useState("");
 
   const { data: pokemons, isFetching } = usePokemons(offset, limit);
-
-  useEffect(() => {
-    console.log(pokedexPokemons);
-  }, [pokedexPokemons]);
 
   return (
     <>
@@ -44,7 +24,10 @@ const Home: React.FC = () => {
             <h1>Pokemons</h1>
           </AppContainer>
           <AppContainer>
-            <SearchBar />
+            <SearchBar
+              setSearchTherm={setSearchTherm}
+              searchTherm={searchTherm}
+            />
           </AppContainer>
           <AppContainer>
             {pokemons?.results?.map((pokemon) => {
@@ -72,4 +55,5 @@ const Home: React.FC = () => {
     </>
   );
 };
+
 export default Home;

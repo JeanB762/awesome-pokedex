@@ -6,7 +6,11 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { defaultGrey, secondaryColor } from "utils/colors";
 
-export default function SearchBar() {
+interface Props {
+  searchTherm: string;
+  setSearchTherm: (therm: string) => void;
+}
+export default function SearchBar({ setSearchTherm, searchTherm }: Props) {
   return (
     <Paper
       component="form"
@@ -22,8 +26,17 @@ export default function SearchBar() {
         sx={{ ml: 1, flex: 1, color: secondaryColor }}
         placeholder="Search for Pokemons..."
         inputProps={{ "aria-label": "search pokemons" }}
+        onChange={(event) => setSearchTherm(event.target.value)}
       />
-      <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+      <IconButton
+        type="submit"
+        sx={{ p: "10px" }}
+        aria-label="search"
+        onClick={(event) => {
+          event.preventDefault();
+          console.log(searchTherm);
+        }}
+      >
         <SearchIcon sx={{ color: secondaryColor }} />
       </IconButton>
     </Paper>
