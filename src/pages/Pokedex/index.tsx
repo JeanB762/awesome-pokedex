@@ -6,6 +6,7 @@ import {
   useMediaQuery,
   useTheme,
   Box,
+  Paper,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
@@ -26,7 +27,17 @@ const Pokedex: React.FC = () => {
   return (
     <>
       {pokedex.length == 0 ? (
-        <Typography>You haven&apos;t captured any pokemon yet.</Typography>
+        <Box
+          component={Paper}
+          height="100vh"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="h2">
+            You haven&apos;t captured any pokemon yet.
+          </Typography>
+        </Box>
       ) : (
         <>
           <Box width="100%" display="flex" flexDirection="row">
