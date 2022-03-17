@@ -8,6 +8,7 @@ import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 import { PokedexContext } from "services/context/pokedexProviderContext";
 
 import PokemonCardContainer from "./PokemonCard";
+import { toast } from "react-toastify";
 
 interface PropsInterface {
   name: string;
@@ -56,30 +57,31 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
                 >
                   {pokemon?.types.map((type) => {
                     return (
-                      <Fab
-                        variant="extended"
+                      <Button
+                        variant="outlined"
                         size="small"
                         color="secondary"
                         key={type.type.name}
                         onClick={() => navigate(`/type/${type.type.name}`)}
                       >
                         {type.type.name}
-                      </Fab>
+                      </Button>
                     );
                   })}
                 </Box>
                 <Tooltip title="Add to Pokedex">
-                  <Button
-                    variant="outlined"
+                  <Fab
+                    variant="circular"
                     color="secondary"
                     onClick={() => {
                       if (pokemon) {
                         addPokemon(pokemon);
+                        toast.success(pokemon.name + " Added from Pokedex");
                       }
                     }}
                   >
                     <CatchingPokemonIcon />
-                  </Button>
+                  </Fab>
                 </Tooltip>
               </PokemonCardContainer>
             </>

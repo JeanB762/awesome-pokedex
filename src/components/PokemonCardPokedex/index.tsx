@@ -8,6 +8,7 @@ import { PokedexContext } from "services/context/pokedexProviderContext";
 import { Pokemon } from "../../services/DTO/pokemonsDTO";
 
 import PokemonCardContainer from "./PokemonCard";
+import { toast } from "react-toastify";
 
 interface PropsInterface {
   pokemon: Pokemon;
@@ -39,29 +40,31 @@ const PokedexCard: React.FC<PropsInterface> = ({ pokemon }: PropsInterface) => {
         >
           {pokemon?.types.map((type) => {
             return (
-              <Fab
-                variant="extended"
+              <Button
+                variant="outlined"
                 size="small"
                 color="secondary"
-                aria-label="add"
                 key={type.type.name}
                 onClick={() => navigate(`/type/${type.type.name}`)}
               >
                 {type.type.name}
-              </Fab>
+              </Button>
             );
           })}
         </Box>
         <Tooltip title="Remove from Pokedex">
-          <Button
-            variant="outlined"
-            color="info"
+          <Fab
+            variant="circular"
+            color="secondary"
             onClick={() => {
-              if (pokemon) removePokemon(pokemon);
+              if (pokemon) {
+                removePokemon(pokemon);
+                toast.error(pokemon.name + " Removed to Pokedex");
+              }
             }}
           >
             <Delete />
-          </Button>
+          </Fab>
         </Tooltip>
       </PokemonCardContainer>
     </>
