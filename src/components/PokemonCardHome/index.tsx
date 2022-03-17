@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
-import { PokemonCardContainer } from "./style";
+import PokemonCardContainer from "./PokemonCard";
 
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 
-import { Box, Button, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip, Typography } from "@mui/material";
 
 import { PokedexContext } from "services/context/pokedexProviderContext";
 
@@ -29,29 +29,31 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   return (
     <>
       {!isFetching ? (
-        <PokemonCardContainer key={pokemon?.name}>
-          <p>
-            <span style={{ fontSize: "24px", fontWeight: "bold" }}>
-              #{pokemon?.id}
-            </span>{" "}
-            {pokemon?.name}
-          </p>
-          <img src={pokemon?.sprites.front_default} />
-          <Box marginBottom={2}>{pokemonTypes}</Box>
-          <Tooltip title="Add to Pokedex">
-            <Button
-              variant="outlined"
-              color="info"
-              onClick={() => {
-                if (pokemon) {
-                  addPokemon(pokemon);
-                }
-              }}
-            >
-              <CatchingPokemonIcon />
-            </Button>
-          </Tooltip>
-        </PokemonCardContainer>
+        <>
+          <PokemonCardContainer key={pokemon?.name}>
+            <Typography variant="h6"> #{pokemon?.id}</Typography>
+            <Typography> {pokemon?.name}</Typography>
+            <img
+              src={pokemon?.sprites.front_default}
+              height="100px"
+              width="100px"
+            />
+            <Typography margin={2}>{pokemonTypes}</Typography>
+            <Tooltip title="Add to Pokedex">
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => {
+                  if (pokemon) {
+                    addPokemon(pokemon);
+                  }
+                }}
+              >
+                <CatchingPokemonIcon />
+              </Button>
+            </Tooltip>
+          </PokemonCardContainer>
+        </>
       ) : (
         <h1>Loading....</h1>
       )}

@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 
-import { PokemonCardContainer } from "./style";
+// import { PokemonCardContainer } from "./style";
+import PokemonCardContainer from "./PokemonCard";
 
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
-import { Box, Button, Tooltip } from "@mui/material";
+import { Box, Button, Tooltip, Typography } from "@mui/material";
 
 import { PokedexContext } from "services/context/pokedexProviderContext";
 import { Delete } from "@mui/icons-material";
@@ -16,7 +17,6 @@ interface PropsInterface {
 const PokedexCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   const { removePokemon } = useContext(PokedexContext);
 
-  // const { pokemon, isFetching } = usePokemon<Pokemon>(name);
   const { data: pokemon, isFetching } = usePokemon(name);
 
   let pokemonTypesArray: string[] = [];
@@ -31,16 +31,16 @@ const PokedexCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
     <>
       {!isFetching ? (
         <PokemonCardContainer key={pokemon?.name}>
-          <p>
-            <span style={{ fontSize: "24px", fontWeight: "bold" }}>
-              #{pokemon?.id}
-            </span>{" "}
-            {pokemon?.name}
-          </p>
+          <Typography variant="h6"> #{pokemon?.id}</Typography>
+          <Typography> {pokemon?.name}</Typography>
           <Link to={`pokemon/${pokemon?.name}`}>
-            <img src={pokemon?.sprites.front_default} />
+            <img
+              src={pokemon?.sprites.front_default}
+              height="100px"
+              width="100px"
+            />
           </Link>
-          <Box marginBottom={2}>{pokemonTypes}</Box>
+          <Typography margin={2}>{pokemonTypes}</Typography>
           <Tooltip title="Remove from Pokedex">
             <Button
               variant="outlined"

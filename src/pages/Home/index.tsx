@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 
 import SearchBar from "../../components/SearchBar";
-import { CustomButtom } from "./style";
-import { AppContainer } from "Styles/GlobalLayoutComponents";
 import PokemonCard from "../../components/PokemonCardHome";
 import { usePokemons } from "services/hooks/Pokemons/usePokemons";
 
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
 import Logo from "../../assets/logo.png";
@@ -44,38 +42,60 @@ const Home: React.FC = () => {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
+              marginTop={2}
             >
-              <img src={Logo} height="100px" />
+              <img src={Logo} height="75px" />
             </Box>
           </Box>
-          <AppContainer>
+          <Box
+            flex={1}
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+            marginTop={5}
+          >
             <SearchBar
               setSearchTherm={setSearchTherm}
               searchTherm={searchTherm}
             />
-          </AppContainer>
-          <AppContainer>
+          </Box>
+          <Box
+            flexWrap="wrap"
+            display="flex"
+            maxWidth="1000px"
+            margin="0 auto"
+            justifyContent="center"
+          >
             {pokemons?.results?.map((pokemon) => {
               return <PokemonCard name={pokemon.name} key={pokemon.name} />;
             })}
-          </AppContainer>
-          <AppContainer>
-            <CustomButtom
+          </Box>
+          <Box
+            flex={1}
+            display="flex"
+            flexDirection="row"
+            justifyContent="center"
+            alignItems="center"
+            marginTop={2}
+          >
+            <IconButton
+              size="large"
               disabled={!offset}
               onClick={() => setOffset(offset - limit)}
             >
-              <ChevronLeftIcon />
-            </CustomButtom>
+              <ArrowCircleLeftIcon />
+            </IconButton>
 
-            <CustomButtom onClick={() => setOffset(offset + limit)}>
-              <ChevronRightIcon />
-            </CustomButtom>
-          </AppContainer>
+            <IconButton size="large" onClick={() => setOffset(offset + limit)}>
+              <ArrowCircleRightIcon />
+            </IconButton>
+          </Box>
         </>
       ) : (
-        <AppContainer>
+        <Box>
           <h1>loading...</h1>
-        </AppContainer>
+        </Box>
       )}
     </>
   );

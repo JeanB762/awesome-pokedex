@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { PokedexContext } from "services/context/pokedexProviderContext";
-import { AppContainer } from "Styles/GlobalLayoutComponents";
 import PokedexCard from "components/PokemonCardPokedex";
 
 import Logo from "../../assets/logo.png";
@@ -33,16 +32,24 @@ const Pokedex: React.FC = () => {
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
+          marginTop={2}
+          marginBottom={3}
         >
-          <img src={Logo} height="100px" />
+          <img src={Logo} height="75px" />
         </Box>
       </Box>
 
-      <AppContainer>
+      <Box
+        flexWrap="wrap"
+        display="flex"
+        maxWidth="1000px"
+        margin="0 auto"
+        justifyContent="center"
+      >
         {pokedex.map((pokemon) => {
           return <PokedexCard name={pokemon.name} key={pokemon.name} />;
         })}
-      </AppContainer>
+      </Box>
     </>
   );
 };
