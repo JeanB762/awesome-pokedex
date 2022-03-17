@@ -27,11 +27,6 @@ Em seguida execute:
 A página recarrega automaticamente sempre que uma alteração é salva.\
 Voce também poderá ver erros de Lint no console.
 
-### `yarn test`
-
-Inicia o test runner.\
-Veja mais: [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
-
 ### `yarn build`
 
 Executa o processo de build para produção na pasta `build`
