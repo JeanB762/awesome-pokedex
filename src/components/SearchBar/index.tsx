@@ -20,6 +20,7 @@ export default function SearchBar({ setSearchTherm, searchTherm }: Props) {
         alignItems: "center",
         width: 400,
         backgroundColor: defaultGrey,
+        margin: "0 10px",
       }}
     >
       <InputBase

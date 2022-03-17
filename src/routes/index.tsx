@@ -3,7 +3,7 @@ import { Routes as RouteDOM, Route } from "react-router-dom";
 import Home from "pages/Home";
 import Pokedex from "pages/Pokedex";
 import PokemonProfile from "pages/PokemonProfile";
-import NotFound from "pages/pageNotFound";
+import NotFound from "pages/PageNotFound";
 
 const Routes: React.FC = () => {
   return (
