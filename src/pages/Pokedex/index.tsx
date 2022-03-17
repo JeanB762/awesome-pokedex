@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PokedexContext } from "providers/pokedexProvider";
+import { PokedexContext } from "services/context/pokedexProviderContext";
 import { AppContainer } from "Styles/GlobalLayoutComponents";
 import PokedexCard from "components/PokemonCardPokedex";
 

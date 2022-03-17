@@ -15,8 +15,10 @@ export interface PokemonTypes {
 }
 
 export interface PokemonTypesResponse {
-  slot: number;
-  type: PokemonTypes;
+  type: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface Stat {

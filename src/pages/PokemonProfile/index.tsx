@@ -1,5 +1,5 @@
 import { Box } from "@mui/system";
-import { PokedexContext } from "providers/pokedexProvider";
+import { PokedexContext } from "services/context/pokedexProviderContext";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";

@@ -5,7 +5,7 @@ import { PokemonCardContainer } from "./style";
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 import { Box, Button, Tooltip } from "@mui/material";
 
-import { PokedexContext } from "providers/pokedexProvider";
+import { PokedexContext } from "services/context/pokedexProviderContext";
 import { Delete } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 

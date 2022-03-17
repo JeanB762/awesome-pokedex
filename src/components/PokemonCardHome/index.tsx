@@ -7,7 +7,7 @@ import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 
 import { Box, Button, Tooltip } from "@mui/material";
 
-import { PokedexContext } from "providers/pokedexProvider";
+import { PokedexContext } from "services/context/pokedexProviderContext";
 
 interface PropsInterface {
   name: string;

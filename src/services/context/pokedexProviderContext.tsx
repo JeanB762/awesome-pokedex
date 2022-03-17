@@ -1,46 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
+import { Pokemon } from "../DTO/pokemonsDTO";
 
 interface Pokedex {
   pokedex: Pokemon[];
   addPokemon: (pokemon: Pokemon) => void;
   removePokemon: (pokemon: Pokemon) => void;
-}
-
-interface Sprites {
-  front_default: string;
-}
-
-interface PokemonTypesResponse {
-  type: {
-    name: string;
-    url: string;
-  };
-}
-
-interface Ability {
-  ability: {
-    name: string;
-    url: string;
-  };
-}
-
-interface Stat {
-  base_stat: number;
-  effort: number;
-  stat: {
-    name: string;
-    url: string;
-  };
-}
-interface Pokemon {
-  name: string;
-  id: number;
-  height: number;
-  weight: number;
-  sprites: Sprites;
-  types: PokemonTypesResponse[];
-  stats: Stat[];
-  abilities: Ability[];
 }
 
 const pokedexDefaultValues: Pokedex = {
@@ -53,8 +17,7 @@ const pokedexDefaultValues: Pokedex = {
   },
 };
 
-export const PokedexContext =
-  React.createContext<Pokedex>(pokedexDefaultValues);
+export const PokedexContext = createContext<Pokedex>(pokedexDefaultValues);
 
 const PokedexProvider: React.FC = ({ children }) => {
   const [pokedex, setPokedex] = useState<Pokemon[]>(

@@ -21,9 +21,6 @@ const Home: React.FC = () => {
       {!isFetching ? (
         <>
           <AppContainer>
-            <h1>Pokemons</h1>
-          </AppContainer>
-          <AppContainer>
             <SearchBar
               setSearchTherm={setSearchTherm}
               searchTherm={searchTherm}
