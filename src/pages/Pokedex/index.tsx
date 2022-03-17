@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   IconButton,
@@ -7,8 +8,10 @@ import {
   useTheme,
   Box,
   Paper,
+  Button,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import { useDrawerContext } from "services/context/drawerContext";
 import { PokedexContext } from "services/context/pokedexProviderContext";
@@ -21,23 +24,54 @@ const Pokedex: React.FC = () => {
   const { pokedex } = useContext(PokedexContext);
   const theme = useTheme();
   const { toggleDrawerOpen } = useDrawerContext();
-
+  const navigate = useNavigate();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
       {pokedex.length == 0 ? (
-        <Box
-          component={Paper}
-          height="100vh"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography variant="h2">
-            You haven&apos;t captured any pokemon yet.
-          </Typography>
-        </Box>
+        <>
+          <Box
+            component={Paper}
+            height="100vh"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+          >
+            <Box
+              margin={5}
+              width="100%"
+              display="flex"
+              flexDirection="row"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
+              <Button
+                style={{ marginLeft: "24px" }}
+                color="secondary"
+                variant="contained"
+                startIcon={<ChevronLeftIcon />}
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Back
+              </Button>
+            </Box>
+            <Box
+              flex={1}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              margin={5}
+            >
+              <Typography variant="h2">
+                You haven&apos;t captured any pokemon yet.
+              </Typography>
+            </Box>
+          </Box>
+        </>
       ) : (
         <>
           <Box width="100%" display="flex" flexDirection="row">

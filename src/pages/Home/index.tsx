@@ -102,8 +102,15 @@ const Home: React.FC = () => {
           </Box>
         </>
       ) : (
-        <Box component={Paper} margin={5} padding={5}>
-          <Typography>Loading...</Typography>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <Box component={Paper} margin={5} padding={5}>
+            <Typography>Loading...</Typography>
+          </Box>
         </Box>
       )}
     </>
