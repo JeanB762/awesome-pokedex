@@ -1,33 +1,35 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 import {
+  Box,
   IconButton,
+  Paper,
   Typography,
   useMediaQuery,
   useTheme,
-  Box,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
+import { usePokemonsByType } from "services/hooks/PokemonsByType/usePokemonsByType";
 import { useDrawerContext } from "services/context/drawerContext";
-import { PokedexContext } from "services/context/pokedexProviderContext";
 
-import PokedexCard from "components/PokemonCardPokedex";
+import PokemonCard from "../../components/PokemonCardHome";
 
 import Logo from "../../assets/logo.png";
 
-const Pokedex: React.FC = () => {
-  const { pokedex } = useContext(PokedexContext);
+const ListByType: React.FC = () => {
+  const { type } = useParams();
   const theme = useTheme();
   const { toggleDrawerOpen } = useDrawerContext();
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const { data: pokemons, isFetching } = usePokemonsByType(type || "");
+
   return (
     <>
-      {pokedex.length == 0 ? (
-        <Typography>You haven&apos;t captured any pokemon yet.</Typography>
-      ) : (
+      {!isFetching ? (
         <>
           <Box width="100%" display="flex" flexDirection="row">
             <Box>
@@ -44,12 +46,10 @@ const Pokedex: React.FC = () => {
               justifyContent="center"
               alignItems="center"
               marginTop={2}
-              marginBottom={3}
             >
               <img src={Logo} height="75px" />
             </Box>
           </Box>
-
           <Box
             flexWrap="wrap"
             display="flex"
@@ -57,14 +57,23 @@ const Pokedex: React.FC = () => {
             margin="0 auto"
             justifyContent="center"
           >
-            {pokedex.map((pokemon) => {
-              return <PokedexCard pokemon={pokemon} key={pokemon.name} />;
+            {pokemons?.pokemon?.map((pokemon) => {
+              return (
+                <PokemonCard
+                  name={pokemon.pokemon.name}
+                  key={pokemon.pokemon.name}
+                />
+              );
             })}
           </Box>
         </>
+      ) : (
+        <Box component={Paper} margin={5} padding={5}>
+          <Typography>Loading...</Typography>
+        </Box>
       )}
     </>
   );
 };
 
-export default Pokedex;
+export default ListByType;

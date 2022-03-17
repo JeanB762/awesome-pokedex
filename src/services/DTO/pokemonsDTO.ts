@@ -59,3 +59,15 @@ export interface PokemonsResponse {
   previous: string | null;
   results: PokemonResponseData[];
 }
+
+export interface PokemonByTypes {
+  pokemon: {
+    name: string;
+    url: string;
+  };
+}
+
+export interface PokemonResponseByType {
+  name: string;
+  pokemon: PokemonByTypes[];
+}

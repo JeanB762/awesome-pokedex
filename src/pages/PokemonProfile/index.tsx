@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
   Button,
@@ -9,13 +10,13 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 import { PokedexContext } from "services/context/pokedexProviderContext";
 
 const PokemonProfile: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const { pokedex, setLocalStorage } = useContext(PokedexContext);
 
   const { pokemonName } = useParams();
@@ -153,7 +154,9 @@ const PokemonProfile: React.FC = () => {
               </Box>
             </Box>
           ) : (
-            <Typography>Loading...</Typography>
+            <Box component={Paper} margin={5} padding={5}>
+              <Typography>Loading...</Typography>
+            </Box>
           )}
           <Box
             component={Paper}
@@ -189,24 +192,59 @@ const PokemonProfile: React.FC = () => {
               flexWrap="wrap"
               margin={2}
             >
-              <Typography variant="body1">
-                Types:
-                {pokemon?.types.map((type) => (
-                  <strong key={type.type.name}> {type.type.name} </strong>
-                ))}
-              </Typography>
-
-              <Typography variant="body1">
-                Abilities:{" "}
-                {pokemon?.abilities.map((ability) => {
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-around"
+              >
+                <Typography variant="body1">Types: </Typography>
+                {pokemon?.types.map((type) => {
                   return (
-                    <strong key={ability.ability.name}>
-                      {" "}
-                      {ability.ability.name}{" "}
-                    </strong>
+                    <Fab
+                      variant="extended"
+                      size="small"
+                      color="secondary"
+                      key={type.type.name}
+                      onClick={() => navigate(`/type/${type.type.name}`)}
+                    >
+                      {type.type.name}
+                    </Fab>
                   );
                 })}
-              </Typography>
+              </Box>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-around"
+              >
+                <Typography variant="body1">Abilities: </Typography>
+                {pokemon?.abilities.map((ability) => {
+                  return (
+                    <Fab
+                      style={{ margin: "5px 0", padding: "10px" }}
+                      variant="extended"
+                      size="small"
+                      color="secondary"
+                      aria-label="add"
+                      key={ability.ability.name}
+                      onClick={() => {
+                        fetch(ability.ability.url)
+                          .then((data) => {
+                            return data.json();
+                          })
+                          .then((data) => {
+                            toast.success(
+                              "Short Effect: " +
+                                data.effect_entries[1].short_effect
+                            );
+                          });
+                      }}
+                    >
+                      {ability.ability.name}
+                    </Fab>
+                  );
+                })}
+              </Box>
             </Box>
             <Box
               display="flex"
@@ -266,7 +304,9 @@ const PokemonProfile: React.FC = () => {
           </Box>
         </Box>
       ) : (
-        <h1>loading</h1>
+        <Box component={Paper} margin={5} padding={5}>
+          <Typography>Loading...</Typography>
+        </Box>
       )}
     </>
   );

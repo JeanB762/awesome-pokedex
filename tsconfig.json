@@ -14,10 +14,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
-    },
+    // "noFallthroughCasesInSwitch": true,
+    // "paths": {
+    //   "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+    // },
     "baseUrl": "src"
   },
   "include": ["src"]

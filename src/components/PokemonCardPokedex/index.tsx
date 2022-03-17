@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Box, Button, Fab, Tooltip, Typography } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
-import PokemonCardContainer from "./PokemonCard";
 import { PokedexContext } from "services/context/pokedexProviderContext";
 import { Pokemon } from "../../services/DTO/pokemonsDTO";
+
+import PokemonCardContainer from "./PokemonCard";
 
 interface PropsInterface {
   pokemon: Pokemon;
@@ -14,6 +15,7 @@ interface PropsInterface {
 
 const PokedexCard: React.FC<PropsInterface> = ({ pokemon }: PropsInterface) => {
   const { removePokemon } = useContext(PokedexContext);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -43,6 +45,7 @@ const PokedexCard: React.FC<PropsInterface> = ({ pokemon }: PropsInterface) => {
                 color="secondary"
                 aria-label="add"
                 key={type.type.name}
+                onClick={() => navigate(`/type/${type.type.name}`)}
               >
                 {type.type.name}
               </Fab>

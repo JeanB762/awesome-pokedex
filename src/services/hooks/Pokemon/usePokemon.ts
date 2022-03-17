@@ -1,5 +1,4 @@
 import { useQuery, UseQueryResult } from "react-query";
-
 import { api } from "../../api";
 import { Pokemon } from "../../DTO/pokemonsDTO";
 

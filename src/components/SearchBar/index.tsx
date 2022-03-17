@@ -1,15 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import { queryClient } from "services/hooks/queryClient";
 
 interface Props {
   searchTherm: string;
   setSearchTherm: (therm: string) => void;
 }
+
 export default function SearchBar({ setSearchTherm, searchTherm }: Props) {
   const navigate = useNavigate();
   return (

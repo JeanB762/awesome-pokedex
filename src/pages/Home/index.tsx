@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 
-import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
-import SearchBar from "../../components/SearchBar";
-import PokemonCard from "../../components/PokemonCardHome";
 import { usePokemons } from "services/hooks/Pokemons/usePokemons";
 import { useDrawerContext } from "services/context/drawerContext";
+
+import SearchBar from "../../components/SearchBar";
+import PokemonCard from "../../components/PokemonCardHome";
 
 import Logo from "../../assets/logo.png";
 
 const Home: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [limit, setLimit] = useState(6);
   const [offset, setOffset] = useState(0);
   const [searchTherm, setSearchTherm] = useState("");
@@ -93,8 +102,8 @@ const Home: React.FC = () => {
           </Box>
         </>
       ) : (
-        <Box>
-          <h1>loading...</h1>
+        <Box component={Paper} margin={5} padding={5}>
+          <Typography>Loading...</Typography>
         </Box>
       )}
     </>

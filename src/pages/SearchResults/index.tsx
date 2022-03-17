@@ -1,7 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 import {
   Box,
+  Button,
   IconButton,
   Paper,
   Typography,
@@ -9,15 +11,18 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
+import { useDrawerContext } from "services/context/drawerContext";
 
 import PokemonCard from "../../components/PokemonCardHome";
-import { useDrawerContext } from "services/context/drawerContext";
 
 import Logo from "../../assets/logo.png";
 
 const SearchResults: React.FC = () => {
   const { searchTherm } = useParams();
   const theme = useTheme();
+  const navigate = useNavigate();
   const { toggleDrawerOpen } = useDrawerContext();
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
@@ -44,6 +49,25 @@ const SearchResults: React.FC = () => {
         </Box>
       </Box>
       <Box
+        margin="10px auto"
+        width="50%"
+        display="flex"
+        flexDirection="row"
+        justifyContent="flex-start"
+        alignItems="center"
+      >
+        <Button
+          color="secondary"
+          variant="contained"
+          startIcon={<ChevronLeftIcon />}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Back
+        </Button>
+      </Box>
+      <Box
         component={Paper}
         width="50%"
         margin="50px auto"
@@ -59,7 +83,11 @@ const SearchResults: React.FC = () => {
         margin="0 auto"
         justifyContent="center"
       >
-        {searchTherm && <PokemonCard name={searchTherm} key={searchTherm} />}
+        {searchTherm ? (
+          <PokemonCard name={searchTherm} key={searchTherm} />
+        ) : (
+          ""
+        )}
       </Box>
     </>
   );

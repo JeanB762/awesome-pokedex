@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { Box, Button, Fab, Paper, Tooltip, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
-import PokemonCardContainer from "./PokemonCard";
-
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
 import { PokedexContext } from "services/context/pokedexProviderContext";
+
+import PokemonCardContainer from "./PokemonCard";
 
 interface PropsInterface {
   name: string;
@@ -14,21 +15,25 @@ interface PropsInterface {
 
 const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   const { addPokemon } = useContext(PokedexContext);
+  const navigate = useNavigate();
 
   const { data: pokemon, isFetching, isError } = usePokemon(name);
 
   return (
     <>
       {isError ? (
-        <Box
-          component={Paper}
-          width="50%"
-          margin="50px auto"
-          display="flex"
-          justifyContent="center"
-        >
-          <Typography variant="body2">Pokemon Not Found</Typography>
-        </Box>
+        <>
+          <Box
+            component={Paper}
+            width="50%"
+            margin="50px auto"
+            padding={5}
+            display="flex"
+            justifyContent="center"
+          >
+            <Typography variant="body2">Pokemon Not Found</Typography>
+          </Box>
+        </>
       ) : (
         <>
           {!isFetching ? (
@@ -55,8 +60,8 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
                         variant="extended"
                         size="small"
                         color="secondary"
-                        aria-label="add"
                         key={type.type.name}
+                        onClick={() => navigate(`/type/${type.type.name}`)}
                       >
                         {type.type.name}
                       </Fab>
@@ -79,7 +84,9 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
               </PokemonCardContainer>
             </>
           ) : (
-            <h1>Loading....</h1>
+            <Box component={Paper} margin={5} padding={5}>
+              <Typography>Loading...</Typography>
+            </Box>
           )}
         </>
       )}

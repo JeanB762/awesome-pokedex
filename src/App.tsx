@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { QueryClientProvider } from "react-query";
+import "react-toastify/dist/ReactToastify.css";
 
 import Routes from "routes";
 import PokedexProvider from "services/context/pokedexProviderContext";

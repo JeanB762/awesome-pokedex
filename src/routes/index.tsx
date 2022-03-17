@@ -5,6 +5,7 @@ import SearchResults from "pages/SearchResults";
 import Pokedex from "pages/Pokedex";
 import PokemonProfile from "pages/PokemonProfile";
 import NotFound from "pages/PageNotFound";
+import ListByType from "pages/ListByType";
 
 const Routes: React.FC = () => {
   return (
@@ -16,7 +17,9 @@ const Routes: React.FC = () => {
         element={<PokemonProfile />}
       />
       <Route path="/pokemonSearch/:searchTherm" element={<SearchResults />} />
+      <Route path="/pokemonSearch/*" element={<SearchResults />} />
       <Route path="/*" element={<NotFound />} />
+      <Route path="/type/:type" element={<ListByType />} />
     </RouteDOM>
   );
 };
