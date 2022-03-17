@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Box, Button, Fab, Tooltip, Typography } from "@mui/material";
+import { Box, Button, Fab, Paper, Tooltip, Typography } from "@mui/material";
 
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
@@ -15,59 +15,73 @@ interface PropsInterface {
 const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   const { addPokemon } = useContext(PokedexContext);
 
-  const { data: pokemon, isFetching } = usePokemon(name);
+  const { data: pokemon, isFetching, isError } = usePokemon(name);
 
   return (
     <>
-      {!isFetching ? (
-        <>
-          <PokemonCardContainer key={pokemon?.name}>
-            <Typography variant="h6"> #{pokemon?.id}</Typography>
-            <Typography> {pokemon?.name}</Typography>
-            <img
-              src={pokemon?.sprites.front_default}
-              height="100px"
-              width="100px"
-            />
-            <Box
-              marginBottom={3}
-              display="flex"
-              flexDirection="row"
-              alignItems="center"
-              justifyContent="space-evenly"
-              width="100%"
-            >
-              {pokemon?.types.map((type) => {
-                return (
-                  <Fab
-                    variant="extended"
-                    size="small"
-                    color="secondary"
-                    aria-label="add"
-                    key={type.type.name}
-                  >
-                    {type.type.name}
-                  </Fab>
-                );
-              })}
-            </Box>
-            <Tooltip title="Add to Pokedex">
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => {
-                  if (pokemon) {
-                    addPokemon(pokemon);
-                  }
-                }}
-              >
-                <CatchingPokemonIcon />
-              </Button>
-            </Tooltip>
-          </PokemonCardContainer>
-        </>
+      {isError ? (
+        <Box
+          component={Paper}
+          width="50%"
+          margin="50px auto"
+          display="flex"
+          justifyContent="center"
+        >
+          <Typography variant="body2">Pokemon Not Found</Typography>
+        </Box>
       ) : (
-        <h1>Loading....</h1>
+        <>
+          {!isFetching ? (
+            <>
+              <PokemonCardContainer key={pokemon?.name}>
+                <Typography variant="h6"> #{pokemon?.id}</Typography>
+                <Typography> {pokemon?.name}</Typography>
+                <img
+                  src={pokemon?.sprites.front_default}
+                  height="100px"
+                  width="100px"
+                />
+                <Box
+                  marginBottom={3}
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="space-evenly"
+                  width="100%"
+                >
+                  {pokemon?.types.map((type) => {
+                    return (
+                      <Fab
+                        variant="extended"
+                        size="small"
+                        color="secondary"
+                        aria-label="add"
+                        key={type.type.name}
+                      >
+                        {type.type.name}
+                      </Fab>
+                    );
+                  })}
+                </Box>
+                <Tooltip title="Add to Pokedex">
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={() => {
+                      if (pokemon) {
+                        addPokemon(pokemon);
+                      }
+                    }}
+                  >
+                    <CatchingPokemonIcon />
+                  </Button>
+                </Tooltip>
+              </PokemonCardContainer>
+            </>
+          ) : (
+            <h1>Loading....</h1>
+          )}
+        </>
       )}
     </>
   );
