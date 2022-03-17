@@ -29,7 +29,7 @@ Voce também poderá ver erros de Lint no console.
 
 ### `yarn build`
 
-Executa o processo de build para produção na pasta `build`
+- Executa o processo de build para produção na pasta `build`
 
 O app está pronto para o deploy!\
 Veja mais sobre deplou em: [deployment](https://facebook.github.io/create-react-app/docs/deployment).
