@@ -22,14 +22,13 @@ Em seguida execute:
 
 - Para executar o projeto no modo de desenvolvimento
 
-  Acesse :[http://localhost:3000](http://localhost:3000) no seu Browser.
+  Acesse: [http://localhost:3000](http://localhost:3000) no seu Browser.
 
-A página recarrega automaticamente sempre que uma alteração é salva.
+A página recarrega automaticamente sempre que uma alteração é salva.\
 Voce também poderá ver erros de Lint no console.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
 Inicia o test runner.\
 Veja mais: [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
@@ -37,6 +36,5 @@ Veja mais: [running tests](https://facebook.github.io/create-react-app/docs/runn
 
 Executa o processo de build para produção na pasta `build`
 
-Your app is ready to be deployed!
-O app está pronto para o deploy
+O app está pronto para o deploy!\
 Veja mais sobre deplou em: [deployment](https://facebook.github.io/create-react-app/docs/deployment).
