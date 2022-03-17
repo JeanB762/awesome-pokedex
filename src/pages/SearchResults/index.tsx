@@ -24,8 +24,12 @@ const SearchResults: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { toggleDrawerOpen } = useDrawerContext();
-
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
+  let sanitizedSearchTherm = "";
+  if (searchTherm)
+    sanitizedSearchTherm =
+      searchTherm[0].toLowerCase() + searchTherm.substring(1);
 
   return (
     <>
@@ -83,11 +87,7 @@ const SearchResults: React.FC = () => {
         margin="0 auto"
         justifyContent="center"
       >
-        {searchTherm ? (
-          <PokemonCard name={searchTherm} key={searchTherm} />
-        ) : (
-          ""
-        )}
+        <PokemonCard name={sanitizedSearchTherm} key={sanitizedSearchTherm} />
       </Box>
     </>
   );
