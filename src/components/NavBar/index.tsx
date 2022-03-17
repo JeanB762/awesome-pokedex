@@ -3,11 +3,9 @@ import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 import HouseIcon from "@mui/icons-material/House";
-
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
-import { usePokedexThemeContext } from "services/context/themeProviderContext";
 import {
   Box,
   Button,
@@ -19,7 +17,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+
 import { useDrawerContext } from "services/context/drawerContext";
+import { usePokedexThemeContext } from "services/context/themeProviderContext";
 
 export const NavMenu: React.FC = ({ children }) => {
   const { toggleTheme, themeName } = usePokedexThemeContext();

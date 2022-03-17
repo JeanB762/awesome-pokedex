@@ -1,61 +1,66 @@
 import React, { useContext } from "react";
-
-// import { PokemonCardContainer } from "./style";
-import PokemonCardContainer from "./PokemonCard";
-
-import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
-import { Box, Button, Tooltip, Typography } from "@mui/material";
-
-import { PokedexContext } from "services/context/pokedexProviderContext";
-import { Delete } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
+import { Box, Button, Fab, Tooltip, Typography } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+
+import PokemonCardContainer from "./PokemonCard";
+import { PokedexContext } from "services/context/pokedexProviderContext";
+import { Pokemon } from "../../services/DTO/pokemonsDTO";
+
 interface PropsInterface {
-  name: string;
+  pokemon: Pokemon;
 }
 
-const PokedexCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
+const PokedexCard: React.FC<PropsInterface> = ({ pokemon }: PropsInterface) => {
   const { removePokemon } = useContext(PokedexContext);
-
-  const { data: pokemon, isFetching } = usePokemon(name);
-
-  let pokemonTypesArray: string[] = [];
-  if (pokemon?.types) {
-    pokemon?.types.forEach((item) => {
-      pokemonTypesArray = [...pokemonTypesArray, item.type.name];
-    });
-  }
-  const pokemonTypes = pokemonTypesArray.join(" | ");
 
   return (
     <>
-      {!isFetching ? (
-        <PokemonCardContainer key={pokemon?.name}>
-          <Typography variant="h6"> #{pokemon?.id}</Typography>
-          <Typography> {pokemon?.name}</Typography>
-          <Link to={`pokemon/${pokemon?.name}`}>
-            <img
-              src={pokemon?.sprites.front_default}
-              height="100px"
-              width="100px"
-            />
-          </Link>
-          <Typography margin={2}>{pokemonTypes}</Typography>
-          <Tooltip title="Remove from Pokedex">
-            <Button
-              variant="outlined"
-              color="info"
-              onClick={() => {
-                if (pokemon) removePokemon(pokemon);
-              }}
-            >
-              <Delete />
-            </Button>
-          </Tooltip>
-        </PokemonCardContainer>
-      ) : (
-        <h1>Loading....</h1>
-      )}
+      <PokemonCardContainer key={pokemon?.name}>
+        <Typography variant="h6"> #{pokemon?.id}</Typography>
+        <Typography> {pokemon?.name}</Typography>
+        <Link to={`pokemon/${pokemon?.name}`}>
+          <img
+            src={pokemon?.sprites.front_default}
+            height="100px"
+            width="100px"
+          />
+        </Link>
+        <Box
+          marginBottom={3}
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="space-evenly"
+          width="100%"
+        >
+          {pokemon?.types.map((type) => {
+            return (
+              <Fab
+                variant="extended"
+                size="small"
+                color="secondary"
+                aria-label="add"
+                key={type.type.name}
+              >
+                {type.type.name}
+              </Fab>
+            );
+          })}
+        </Box>
+        <Tooltip title="Remove from Pokedex">
+          <Button
+            variant="outlined"
+            color="info"
+            onClick={() => {
+              if (pokemon) removePokemon(pokemon);
+            }}
+          >
+            <Delete />
+          </Button>
+        </Tooltip>
+      </PokemonCardContainer>
     </>
   );
 };

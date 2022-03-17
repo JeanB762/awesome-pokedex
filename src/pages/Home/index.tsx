@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-import SearchBar from "../../components/SearchBar";
-import PokemonCard from "../../components/PokemonCardHome";
-import { usePokemons } from "services/hooks/Pokemons/usePokemons";
-
+import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 
-import Logo from "../../assets/logo.png";
-import { Box, IconButton, useMediaQuery, useTheme } from "@mui/material";
+import SearchBar from "../../components/SearchBar";
+import PokemonCard from "../../components/PokemonCardHome";
+import { usePokemons } from "services/hooks/Pokemons/usePokemons";
 import { useDrawerContext } from "services/context/drawerContext";
+
+import Logo from "../../assets/logo.png";
 
 const Home: React.FC = () => {
   const [limit, setLimit] = useState(6);

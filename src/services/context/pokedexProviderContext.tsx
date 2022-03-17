@@ -5,6 +5,7 @@ interface Pokedex {
   pokedex: Pokemon[];
   addPokemon: (pokemon: Pokemon) => void;
   removePokemon: (pokemon: Pokemon) => void;
+  setLocalStorage: (pokedex: Pokemon[]) => void;
 }
 
 const pokedexDefaultValues: Pokedex = {
@@ -13,6 +14,9 @@ const pokedexDefaultValues: Pokedex = {
     return;
   },
   removePokemon: () => {
+    return;
+  },
+  setLocalStorage: () => {
     return;
   },
 };
@@ -42,6 +46,7 @@ const PokedexProvider: React.FC = ({ children }) => {
       "awessomePokedex/pokedex",
       JSON.stringify(pokedex)
     );
+    setPokedex(pokedex);
   };
 
   const addPokemon = (newPokemon: Pokemon) => {
@@ -53,7 +58,6 @@ const PokedexProvider: React.FC = ({ children }) => {
       setPokedex(newPokedex);
       setLocalStorage(newPokedex);
     }
-    console.log("alreadyExist >>> ", alreadyExist);
   };
 
   const removePokemon = (pokemonToRemove: Pokemon) => {
@@ -71,6 +75,7 @@ const PokedexProvider: React.FC = ({ children }) => {
         pokedex,
         addPokemon,
         removePokemon,
+        setLocalStorage,
       }}
     >
       {children}

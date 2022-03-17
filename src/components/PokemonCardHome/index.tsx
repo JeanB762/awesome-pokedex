@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
+import { Box, Button, Fab, Tooltip, Typography } from "@mui/material";
+
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon";
 
 import PokemonCardContainer from "./PokemonCard";
 
 import { usePokemon } from "../../services/hooks/Pokemon/usePokemon";
-
-import { Box, Button, Tooltip, Typography } from "@mui/material";
-
 import { PokedexContext } from "services/context/pokedexProviderContext";
 
 interface PropsInterface {
@@ -17,14 +16,6 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
   const { addPokemon } = useContext(PokedexContext);
 
   const { data: pokemon, isFetching } = usePokemon(name);
-
-  let pokemonTypesArray: string[] = [];
-  if (pokemon?.types) {
-    pokemon?.types.forEach((item) => {
-      pokemonTypesArray = [...pokemonTypesArray, item.type.name];
-    });
-  }
-  const pokemonTypes = pokemonTypesArray.join(" | ");
 
   return (
     <>
@@ -38,7 +29,28 @@ const PokemonCard: React.FC<PropsInterface> = ({ name }: PropsInterface) => {
               height="100px"
               width="100px"
             />
-            <Typography margin={2}>{pokemonTypes}</Typography>
+            <Box
+              marginBottom={3}
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-evenly"
+              width="100%"
+            >
+              {pokemon?.types.map((type) => {
+                return (
+                  <Fab
+                    variant="extended"
+                    size="small"
+                    color="secondary"
+                    aria-label="add"
+                    key={type.type.name}
+                  >
+                    {type.type.name}
+                  </Fab>
+                );
+              })}
+            </Box>
             <Tooltip title="Add to Pokedex">
               <Button
                 variant="outlined"
